@@ -1,31 +1,47 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <v-app id="inspire">
+      <AppToolbar></AppToolbar>
+      <v-layout class="container-after-toolbar"  grid-list-xl>
+        <v-layout row wrap>
+          <v-flex xs3 class="max-height">
+            <AppMenu></AppMenu>
+          </v-flex>
+          <v-flex xs9>
+            <v-container>
+              <router-view></router-view>
+            </v-container>
+          </v-flex>
+        </v-layout>
+      </v-layout>
+      <AppFooter :links="links" />
+    </v-app>
   </div>
 </template>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+import AppFooter from '@/components/AppFooter.vue';
+import AppToolbar from '@/components/AppToolbar.vue';
+import AppMenu from '@/components/AppMenu.vue';
+import '@/assets/main.css';
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
 
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+@Component({
+    components: {
+      AppFooter,
+      AppToolbar,
+      AppMenu,
+    },
+  })
+  export default class extends Vue {
+    public links: string[] =  [
+      'Home',
+      'About Us',
+      'Team',
+      'Services',
+      'Blog',
+      'Contact Us',
+    ];
+  }
+</script>
